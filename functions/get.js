@@ -12,6 +12,11 @@ router.get("/", async(req, res) => {
   res.status(200).json(data);
 });
 
+//-----------------------------------------------------------
+//  url examle:
+//      .netlify/functions/get
+//-----------------------------------------------------------
+
 app.use(`/.netlify/functions/get`, router);
 
 export default app;

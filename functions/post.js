@@ -6,7 +6,7 @@ const app = express();
 const router = Router();
 
 router.get("/:data", (req, res) => {
-    var str_data = req.params.data.split('&&')
+    var str_data = req.params.data.split('&')
     var json_data = [];
     var data = {
         co2: 0,
@@ -28,8 +28,19 @@ router.get("/:data", (req, res) => {
             data.ch4 = item['ch4']
         }
     }
-    res.status(201).json({"status": "ok", "data": data})
+    fetch('https://62e2956eb54fc209b87c5f94.mockapi.io/nexus/smartcity-database/1', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json()).then(temp => {
+        res.status(201).json({"status": "ok", "data": data});
+    });
 });
+
+//-----------------------------------------------------------
+//  url examle:
+//      .netlify/functions/post/co2=22&o2=108&ch4=6
+//-----------------------------------------------------------
 
 app.use(`/.netlify/functions/post`, router);
 
