@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import serverless from "serverless-http";
 const fs = require('fs');
+import fetch from 'node-fetch';
 
 const app = express();
 const router = Router();
